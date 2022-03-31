@@ -1,0 +1,41 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: order-service
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 10
+  stage: dev
+  region: ap-southeast-1
+
+functions:
+  getOrders:
+    handler: handler.getOrders
+    events:
+      - http:
+          path: orders/{user_id}
+          method: get
+          cors: true
+  createOrders:
+    handler: handler.createOrders
+    events:
+      - http:
+          path: orders
+          method: post
+          cors: true
+plugins:
+  - serverless-offline
+  - serverless-mocha-plugin
